@@ -25,9 +25,32 @@ let totalExpenses = () => {
 let loadCabecero = () => {
   let totalInco = totalIncomes();
   let buget = totalIncomes() - totalExpenses();
-  let porcentage = totalExpenses() /  totalIncomes() * 100;
-  document.getElementById("budget").innerHTML = buget;
-  document.getElementById("income").innerHTML = totalIncomes();
-  document.getElementById("expense").innerHTML = totalExpenses();
-  document.getElementById("porcentage").innerHTML = porcentage;
+  let porcentage = (totalExpenses() / totalIncomes()) ;
+  document.getElementById("budget").innerHTML = formatCurrency(buget);
+  document.getElementById("income").innerHTML = formatCurrency(totalIncomes());
+  document.getElementById("expense").innerHTML = formatCurrency(
+    totalExpenses()
+  );
+  document.getElementById("porcentage").innerHTML = formatPorcentage(porcentage);
+};
+
+const formatCurrency = (valor) => {
+  return valor.toLocaleString("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  });
+  /*   //Colon -CR
+  return valor.toLocaleString("es-CR", {
+    style: "currency",
+    currency: "CRC",
+    minimumFractionDigits: 2,
+  });*/
+};
+
+const formatPorcentage = (valor) => {
+  return valor.toLocaleString("en-US", {
+    style: "percent",
+    minimumFractionDigits: 2,
+  });
 };
