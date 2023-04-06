@@ -74,12 +74,20 @@ const createIncomesHTML = (income) => {
         <div class="elemento_valor">${formatCurrency(income.value)}</div>
         <div class="elemento_eliminar">
             <button class="elemento_eliminar--btn">
-                <ion-icon name="close-circle-outline"></ion-icon>
+                <ion-icon name="close-circle-outline"
+                onclick="deleteIncome(${income.idIncome})"></ion-icon>
             </button>
         </div>
     </div>
   </div>`;
   return incomeHTML;
+};
+
+const deleteIncome = (idIncome) => {
+  let indexDelete = incomes.findIndex((income) => income.idIncome === idIncome);
+  incomes.splice(indexDelete, 1);
+  loadCabecero();
+  loadIncomes();
 };
 
 const loadExpenses = () => {
@@ -91,7 +99,7 @@ const loadExpenses = () => {
 };
 
 const createExpensesHTML = (expense) => {
-  let porcentage = expense.value / totalIncomes();  
+  let porcentage = expense.value / totalExpenses();
   let expenseHTML = `
     <div class="elemento limpiarEstilos">
     <div class="elemento_descripcion">${expense.description}</div>
@@ -100,11 +108,20 @@ const createExpensesHTML = (expense) => {
         <div class="elemento_porcentaje">${formatPorcentage(porcentage)}</div>
         <div class="elemento_eliminar">
             <button class="elemento_eliminar--btn">
-                <ion-icon name="close-circle-outline"></ion-icon>
+                <ion-icon name="close-circle-outline"
+                onclick="deletExpense(${expense.idExpense})"></ion-icon>
             </button>
         </div>
+        </div>
     </div>
-</div>
 `;
   return expenseHTML;
 };
+
+
+const deletExpense = (idExpense) => {
+    let indexDelete = expenses.findIndex((expense) => expense.idExpense === idExpense);
+    expenses.splice(indexDelete, 1);
+    loadCabecero();
+    loadExpenses();
+  };
