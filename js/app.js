@@ -118,10 +118,33 @@ const createExpensesHTML = (expense) => {
   return expenseHTML;
 };
 
-
 const deletExpense = (idExpense) => {
-    let indexDelete = expenses.findIndex((expense) => expense.idExpense === idExpense);
-    expenses.splice(indexDelete, 1);
+  let indexDelete = expenses.findIndex(
+    (expense) => expense.idExpense === idExpense
+  );
+  expenses.splice(indexDelete, 1);
+  loadCabecero();
+  loadExpenses();
+};
+
+const addData = () => {
+  let form = document.forms["form"];
+  let type = form["tipo"];
+  let description = form["description"];
+  let value = form["value"];
+  if (description.value !== "" && value.value !== "") {
+    switch (type.value) {
+      case "income":
+        let newInco = new Income(description.value, parseInt(value.value));
+        incomes.push(newInco); // incomes.push( new Income(description.value, parseInt(value.value))
+        loadIncomes();
+        break;
+      case "expense":
+        let newExp = new Income(description.value, parseInt(value.value));
+        expenses.push(newExp);
+        loadExpenses();
+        break;
+    }
     loadCabecero();
-    loadExpenses();
-  };
+  }
+};
