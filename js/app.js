@@ -5,6 +5,7 @@ const expenses = [new Expenses("rent", 900), new Expenses("tickets", 90)];
 let loadApp = () => {
   loadCabecero();
   loadIncomes();
+  loadExpenses();
 };
 
 let totalIncomes = () => {
@@ -79,4 +80,31 @@ const createIncomesHTML = (income) => {
     </div>
   </div>`;
   return incomeHTML;
+};
+
+const loadExpenses = () => {
+  let expensesHTML = " ";
+  for (let expense of expenses) {
+    expensesHTML += createExpensesHTML(expense);
+  }
+  document.getElementById("lista-egresos").innerHTML = expensesHTML;
+};
+
+const createExpensesHTML = (expense) => {
+  let porcentage = expense.value / totalIncomes();  
+  let expenseHTML = `
+    <div class="elemento limpiarEstilos">
+    <div class="elemento_descripcion">${expense.description}</div>
+    <div class="derecha limpiarEstilos">
+        <div class="elemento_valor">${formatCurrency(expense.value)}</div>
+        <div class="elemento_porcentaje">${formatPorcentage(porcentage)}</div>
+        <div class="elemento_eliminar">
+            <button class="elemento_eliminar--btn">
+                <ion-icon name="close-circle-outline"></ion-icon>
+            </button>
+        </div>
+    </div>
+</div>
+`;
+  return expenseHTML;
 };
